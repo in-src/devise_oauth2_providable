@@ -1,3 +1,7 @@
+# Branch Notice
+
+This is a branch of the original devise_oauth2_providable, which uses a different name for the client model to resolve the potential name confliction.
+
 # devise_oauth2_providable
 
 Rails3 engine that brings OAuth2 Provider support to your application.
