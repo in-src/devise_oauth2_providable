@@ -4,7 +4,7 @@ describe ProtectedController do
 
   describe 'get :index' do
     before do
-      client = Client.create! :name => 'test', :redirect_uri => 'http://localhost:3000', :website => 'http://localhost'
+      client = Oauth2Client.create! :name => 'test', :redirect_uri => 'http://localhost:3000', :website => 'http://localhost'
       @user = User.create! :name => 'ryan sonnek', :email => 'foo@example.com'
       @token = AccessToken.create! :client => client, :user => @user
     end

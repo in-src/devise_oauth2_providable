@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(:version => 20110511210926) do
 
   create_table "access_tokens", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "client_id"
+    t.integer  "oauth2_client_id"
     t.integer  "refresh_token_id"
     t.string   "token"
     t.datetime "expires_at"
@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(:version => 20110511210926) do
     t.datetime "updated_at"
   end
 
-  add_index "access_tokens", ["client_id"], :name => "index_access_tokens_on_client_id"
   add_index "access_tokens", ["expires_at"], :name => "index_access_tokens_on_expires_at"
+  add_index "access_tokens", ["oauth2_client_id"], :name => "index_access_tokens_on_oauth2_client_id"
   add_index "access_tokens", ["token"], :name => "index_access_tokens_on_token", :unique => true
   add_index "access_tokens", ["user_id"], :name => "index_access_tokens_on_user_id"
 
   create_table "authorization_codes", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "client_id"
+    t.integer  "oauth2_client_id"
     t.string   "token"
     t.datetime "expires_at"
     t.string   "redirect_uri"
@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(:version => 20110511210926) do
     t.datetime "updated_at"
   end
 
-  add_index "authorization_codes", ["client_id"], :name => "index_authorization_codes_on_client_id"
   add_index "authorization_codes", ["expires_at"], :name => "index_authorization_codes_on_expires_at"
+  add_index "authorization_codes", ["oauth2_client_id"], :name => "index_authorization_codes_on_oauth2_client_id"
   add_index "authorization_codes", ["token"], :name => "index_authorization_codes_on_token", :unique => true
   add_index "authorization_codes", ["user_id"], :name => "index_authorization_codes_on_user_id"
 
-  create_table "clients", :force => true do |t|
+  create_table "oauth2_clients", :force => true do |t|
     t.string   "name"
     t.string   "redirect_uri"
     t.string   "website"
@@ -52,19 +52,19 @@ ActiveRecord::Schema.define(:version => 20110511210926) do
     t.datetime "updated_at"
   end
 
-  add_index "clients", ["identifier"], :name => "index_clients_on_identifier", :unique => true
+  add_index "oauth2_clients", ["identifier"], :name => "index_oauth2_clients_on_identifier", :unique => true
 
   create_table "refresh_tokens", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "client_id"
+    t.integer  "oauth2_client_id"
     t.string   "token"
     t.datetime "expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "refresh_tokens", ["client_id"], :name => "index_refresh_tokens_on_client_id"
   add_index "refresh_tokens", ["expires_at"], :name => "index_refresh_tokens_on_expires_at"
+  add_index "refresh_tokens", ["oauth2_client_id"], :name => "index_refresh_tokens_on_oauth2_client_id"
   add_index "refresh_tokens", ["token"], :name => "index_refresh_tokens_on_token", :unique => true
   add_index "refresh_tokens", ["user_id"], :name => "index_refresh_tokens_on_user_id"
 

@@ -5,7 +5,7 @@ module ExpirableToken
       self.default_lifetime = 1.minute
 
       belongs_to :user
-      belongs_to :client
+      belongs_to :client, :class_name => 'Oauth2Client', :foreign_key => 'oauth2_client_id'
 
       before_validation :init_token, :on => :create, :unless => :token?
       before_validation :init_expires_at, :on => :create, :unless => :expires_at?

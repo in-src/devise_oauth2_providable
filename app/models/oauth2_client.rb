@@ -1,4 +1,4 @@
-class Client < ActiveRecord::Base
+class Oauth2Client < ActiveRecord::Base
   has_many :access_tokens
   has_many :refresh_tokens
 

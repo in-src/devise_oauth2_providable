@@ -29,16 +29,16 @@ class Oauth2::AuthorizationsController < ApplicationController
 
   def authorize_endpoint(allow_approval = false)
     Rack::OAuth2::Server::Authorize.new do |req, res|
-      @client = Client.find_by_identifier(req.client_id) || req.bad_request!
+      @client = Oauth2Client.find_by_identifier(req.oauth2_client_id) || req.bad_request!
       res.redirect_uri = @redirect_uri = req.verify_redirect_uri!(@client.redirect_uri)
       if allow_approval
         if params[:approve].present?
           case req.response_type
           when :code
-            authorization_code = current_user.authorization_codes.create(:client_id => @client, :redirect_uri => @redirect_uri)
+            authorization_code = current_user.authorization_codes.create(:oauth2_client_id => @client, :redirect_uri => @redirect_uri)
             res.code = authorization_code.token
           when :token
-            access_token = current_user.access_tokens.create(:client_id => @client).token
+            access_token = current_user.access_tokens.create(:oauth2_client_id => @client).token
             bearer_token = Rack::OAuth2::AccessToken::Bearer.new(:access_token => access_token)
             res.access_token = bearer_token
           end
